@@ -57,7 +57,7 @@ public class BanCommandsTests
         
         var modal = this._interactionContext.LastModal!;
         Assert.That(modal.Title, Is.EqualTo("Ban (Exploiting)"));
-        Assert.That(modal.CustomId, Is.EqualTo("SovereignBanPrompt"));
+        Assert.That(modal.CustomId, Is.EqualTo("SovereignBanPrompt:False"));
         var modalComponents = modal.Component.Components!.ToList().Select(component => (TextInputComponent) component.Components.First()).ToList();
         Assert.That(modalComponents[0].CustomId, Is.EqualTo("DisplayReason"));
         Assert.That(modalComponents[0].Label, Is.EqualTo("Display Reason"));
@@ -152,7 +152,7 @@ public class BanCommandsTests
 
         var modal = this._interactionContext.LastModal!;
         Assert.That(modal.Title, Is.EqualTo("Ban (Exploiting)"));
-        Assert.That(modal.CustomId, Is.EqualTo("SovereignBanPrompt"));
+        Assert.That(modal.CustomId, Is.EqualTo("SovereignBanPrompt:False"));
         var modalComponents = modal.Component.Components!.ToList().Select(component => (TextInputComponent) component.Components.First()).ToList();
         Assert.That(modalComponents[0].CustomId, Is.EqualTo("DisplayReason"));
         Assert.That(modalComponents[0].Label, Is.EqualTo("Display Reason"));
