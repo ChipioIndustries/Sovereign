@@ -97,7 +97,7 @@ public class LinkCommands : ExtendedInteractionModuleBase
                 if (linkResponse.Status == ResponseStatus.Success)
                 {
                     await context.RespondAsync($"Successfully linked your account with the Roblox user {robloxUserId}.");
-                    Logger.Info($"Discord user {discordUserId} succesfully linked with Roblox user {robloxUserId}.");
+                    Logger.Info($"Discord user {discordUserId} successfully linked with Roblox user {robloxUserId}.");
                 }
                 else if (linkResponse.Status == ResponseStatus.Forbidden)
                 {
