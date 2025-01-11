@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 as build
 ARG APP_NAME
 ARG PORT
 
@@ -10,7 +10,7 @@ COPY ${APP_NAME}/ ${APP_NAME}/
 RUN dotnet build ${APP_NAME} -c release -r linux-musl-x64 --self-contained -o /publish
 
 # Switch to a container for runtime.
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine as runtime
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine as runtime
 ARG APP_NAME
 
 # Prepare the runtime.
