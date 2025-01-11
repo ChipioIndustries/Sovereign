@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using Bouncer.Test.Web.Client.Shim;
-using Bouncer.Web.Client;
 using Sovereign.Api.Bans.Configuration;
 using Sovereign.Api.Bans.Web.Server.Controller.Shim;
 using Sovereign.Core.Database;
+using Sovereign.Core.Web.Client;
 
 namespace Sovereign.Api.Bans.Test.Web.Server.Controller.Shim;
 
@@ -37,9 +37,9 @@ public class TestBanControllerResources : IBanControllerResources
     /// Returns the client used to for group rank checks.
     /// </summary>
     /// <returns>The client used to for group rank checks.</returns>
-    public RobloxGroupClient GetRobloxGroupClient()
+    public RobloxExtendedGroupClient GetRobloxGroupClient()
     {
-        return new RobloxGroupClient(this.TestHttpClient, this.TestHttpClient);
+        return new RobloxExtendedGroupClient(this.TestHttpClient, this.TestHttpClient);
     }
     
     /// <summary>

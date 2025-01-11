@@ -1,6 +1,6 @@
-﻿using Bouncer.Web.Client;
-using Sovereign.Api.Bans.Configuration;
+﻿using Sovereign.Api.Bans.Configuration;
 using Sovereign.Core.Database;
+using Sovereign.Core.Web.Client;
 
 namespace Sovereign.Api.Bans.Web.Server.Controller.Shim;
 
@@ -16,7 +16,7 @@ public interface IBanControllerResources
     /// Returns the client used to for group rank checks.
     /// </summary>
     /// <returns>The client used to for group rank checks.</returns>
-    public RobloxGroupClient GetRobloxGroupClient();
+    public RobloxExtendedGroupClient GetRobloxGroupClient();
     
     /// <summary>
     /// Returns the database context to use.

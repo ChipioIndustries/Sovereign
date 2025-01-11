@@ -1,7 +1,7 @@
 ﻿using Bouncer.State;
-using Bouncer.Web.Client;
 using Sovereign.Api.Bans.Configuration;
 using Sovereign.Core.Database;
+using Sovereign.Core.Web.Client;
 
 namespace Sovereign.Api.Bans.Web.Server.Controller.Shim;
 
@@ -20,9 +20,9 @@ public class BanControllerResources : IBanControllerResources
     /// Returns the client used to for group rank checks.
     /// </summary>
     /// <returns>The client used to for group rank checks.</returns>
-    public RobloxGroupClient GetRobloxGroupClient()
+    public RobloxExtendedGroupClient GetRobloxGroupClient()
     {
-        return new RobloxGroupClient();
+        return new RobloxExtendedGroupClient();
     }
 
     /// <summary>

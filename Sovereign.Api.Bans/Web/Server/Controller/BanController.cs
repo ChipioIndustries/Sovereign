@@ -9,8 +9,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Bouncer.Diagnostic;
 using Microsoft.EntityFrameworkCore;
+using Sovereign.Api.Bans.Web.Client;
 using Sovereign.Api.Bans.Web.Server.Controller.Shim;
-using Sovereign.Api.Bans.Web.Server.Model;
 using Sovereign.Core.Database.Model.Api;
 using Sovereign.Core.Model;
 using Sovereign.Core.Model.Request.Api;
@@ -155,7 +155,7 @@ public class BanController
         }
         
         // Convert the Roblox user authorization.
-        // Return 401 if the linked Roblox account can be verified or the Roblox id is invalid.
+        // Return 401 if the linked Roblox account can't be verified or the Roblox id is invalid.
         await using var bansContext = this.ControllerResources.GetBansContext();
         var authenticationMethod = request.Authentication!.Method!.ToLower();
         var authenticationData = request.Authentication!.Data!;
@@ -191,12 +191,12 @@ public class BanController
             foreach (var groupId in domainData.GroupIdRankChecks)
             {
                 var banningUserRank = await robloxGroupClient.GetRankInGroupAsync(actingRobloxId, groupId);
+                var groupRankState = new GroupRankState(groupId, robloxGroupClient);
+                await groupRankState.LoadRolesAsync();
                 foreach (var targetRobloxId in request.Action!.UserIds!)
                 {
-                    var targetUserRank = await robloxGroupClient.GetRankInGroupAsync(targetRobloxId, groupId);
-                    if (banningUserRank <= 0 && targetUserRank <= 0) continue;
-                    if (banningUserRank > targetUserRank) continue;
-                    Logger.Info($"Ignoring request to POST /bans/ban in domain {domainData.Name} due to {actingRobloxId} ({banningUserRank}) being above or the same rank as {targetRobloxId} ({targetUserRank}) in group {groupId}.");
+                    if (await groupRankState.CanActOnUserAsync(targetRobloxId, banningUserRank)) continue;
+                    Logger.Info($"Ignoring request to POST /bans/ban in domain {domainData.Name} due to {actingRobloxId} ({banningUserRank}) being above or the same rank as {targetRobloxId} in group {groupId}.");
                     return new JsonResponse(new SimpleResponse(ResponseStatus.GroupRankPermissionError), 403);
                 }
             }
