@@ -18,7 +18,7 @@ public class GroupRankStateTest
         this._testHttpClient = new TestHttpClient();
         this._client = new RobloxExtendedGroupClient(this._testHttpClient, this._testHttpClient);
         this._groupRankState = new GroupRankState(12345, this._client);
-        this._testHttpClient.SetResponse("https://groups.roblox.com/v1/groups/12345/roles", HttpStatusCode.OK, "{\"groupRoles\":[{\"id\":1234,\"rank\":0,\"memberCount\":0},{\"id\":1235,\"rank\":50,\"memberCount\":1000},{\"id\":1236,\"rank\":100,\"memberCount\":1},{\"id\":1237,\"rank\":150,\"memberCount\":0},{\"id\":1238,\"rank\":255,\"memberCount\":1}]}");
+        this._testHttpClient.SetResponse("https://groups.roblox.com/v1/groups/12345/roles", HttpStatusCode.OK, "{\"roles\":[{\"id\":1234,\"rank\":0,\"memberCount\":0},{\"id\":1235,\"rank\":50,\"memberCount\":1000},{\"id\":1236,\"rank\":100,\"memberCount\":1},{\"id\":1237,\"rank\":150,\"memberCount\":0},{\"id\":1238,\"rank\":255,\"memberCount\":1}]}");
         this._groupRankState.LoadRolesAsync().Wait();
     }
 

@@ -21,7 +21,7 @@ public class RobloxExtendedGroupClientTest
     public void TestGetGroupRoles()
     {
         
-        this._testHttpClient.SetResponse("https://groups.roblox.com/v1/groups/12345/roles", HttpStatusCode.OK, "{\"groupId\":12345,\"groupRoles\":[{\"id\":1234,\"name\":\"TestName\",\"description\":\"TestDescription\",\"rank\":123,\"memberCount\":12}]}");
+        this._testHttpClient.SetResponse("https://groups.roblox.com/v1/groups/12345/roles", HttpStatusCode.OK, "{\"groupId\":12345,\"roles\":[{\"id\":1234,\"name\":\"TestName\",\"description\":\"TestDescription\",\"rank\":123,\"memberCount\":12}]}");
         var response = this._client.GetGroupRoles(12345).Result;
         Assert.That(response.GroupId, Is.EqualTo(12345));
         Assert.That(response.GroupRoles.Count, Is.EqualTo(1));

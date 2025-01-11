@@ -48,7 +48,7 @@ public class GroupRolesResponse : BaseRobloxOpenCloudResponse
     /// <summary>
     /// Roles in the group.
     /// </summary>
-    [JsonPropertyName("groupRoles")]
+    [JsonPropertyName("roles")]
     public List<GroupRole> GroupRoles { get; set; } = null!;
 }
 

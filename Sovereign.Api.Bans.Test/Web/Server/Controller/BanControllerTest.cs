@@ -330,7 +330,7 @@ public class BanControllerTest
         {
             1788L,
         };
-        this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v1/groups/1788/roles", HttpStatusCode.OK, "{\"groupRoles\":[{\"id\":1234,\"rank\":250,\"memberCount\":1000}]}");
+        this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v1/groups/1788/roles", HttpStatusCode.OK, "{\"roles\":[{\"id\":1234,\"rank\":250,\"memberCount\":1000}]}");
         this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v2/users/12345/groups/roles", HttpStatusCode.OK, "{\"data\":[{\"group\":{\"id\":1788},\"role\":{\"rank\":100}}]}");
         this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v2/users/23456/groups/roles", HttpStatusCode.OK, "{\"data\":[{\"group\":{\"id\":1788},\"role\":{\"rank\":100}}]}");
 
@@ -592,7 +592,7 @@ public class BanControllerTest
         {
             1788L, // Does anyone get this reference?
         };
-        this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v1/groups/1788/roles", HttpStatusCode.OK, "{\"groupRoles\":[{\"id\":1234,\"rank\":250,\"memberCount\":1000}]}");
+        this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v1/groups/1788/roles", HttpStatusCode.OK, "{\"roles\":[{\"id\":1234,\"rank\":250,\"memberCount\":1000}]}");
         this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v2/users/12345/groups/roles", HttpStatusCode.OK, "{\"data\":[{\"group\":{\"id\":1788},\"role\":{\"rank\":101}}]}");
         this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v2/users/23456/groups/roles", HttpStatusCode.OK, "{\"data\":[{\"group\":{\"id\":1788},\"role\":{\"rank\":100}}]}");
 
@@ -610,7 +610,7 @@ public class BanControllerTest
         {
             1788L,
         };
-        this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v1/groups/1788/roles", HttpStatusCode.OK, "{\"groupRoles\":[{\"id\":1234,\"rank\":250,\"memberCount\":1000}]}");
+        this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v1/groups/1788/roles", HttpStatusCode.OK, "{\"roles\":[{\"id\":1234,\"rank\":250,\"memberCount\":1000}]}");
         this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v2/users/12345/groups/roles", HttpStatusCode.OK, "{\"data\":[]}");
         this._testResources.TestHttpClient.SetResponse("https://groups.roblox.com/v2/users/23456/groups/roles", HttpStatusCode.OK, "{\"data\":[]}");
 
