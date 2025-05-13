@@ -5,6 +5,7 @@ using Discord;
 using Sovereign.Core.Model.Response.Api;
 using Sovereign.Core.Web.Client;
 using Sovereign.Core.Web.Client.Response;
+using Sovereign.Discord.Extension;
 
 namespace Sovereign.Discord.Discord.Component;
 
@@ -87,10 +88,10 @@ public class BanViewComponent
             newDescription.Append($"\n**Display reason**: {this._banEntry.Reason.Display}");
             newDescription.Append($"\n**Private reason**: {this._banEntry.Reason.Private}");
             newDescription.Append($"\n**Handled by**: {this._banningUerProfileResponse?.DisplayName} (@{this._banningUerProfileResponse?.Name}) [{this._banEntry.Reason.ActingUserId}]");
-            newDescription.Append($"\n**Start time**: {this._banEntry.Action.StartTime}");
+            newDescription.Append($"\n**Start time**: {this._banEntry.Action.StartTime.ToDiscordFormattedTime()}");
             if (this._banEntry.Action.EndTime != null)
             {
-                newDescription.Append($"\n**Expire time**: {this._banEntry.Action.EndTime}");
+                newDescription.Append($"\n**Expire time**: {this._banEntry.Action.EndTime?.ToDiscordFormattedTime()}");
                 if (this._banEntry.Action.EndTime < DateTime.Now)
                 {
                     newDescription.Append(" *(Expired)*");

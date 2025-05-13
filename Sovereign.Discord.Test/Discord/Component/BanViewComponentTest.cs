@@ -8,6 +8,7 @@ using Sovereign.Core.Model;
 using Sovereign.Core.Model.Response.Api;
 using Sovereign.Core.Web.Client.Response;
 using Sovereign.Discord.Discord.Component;
+using Sovereign.Discord.Extension;
 
 namespace Sovereign.Discord.Test.Discord.Component;
 
@@ -76,7 +77,7 @@ public class BanViewComponentTest
         description.Append($"\n**Display reason**: Test Display");
         description.Append($"\n**Private reason**: Test Private");
         description.Append($"\n**Handled by**: TestDisplay2 (@TestName2) [12345]");
-        description.Append($"\n**Start time**: {banEntry.Action.StartTime}");
+        description.Append($"\n**Start time**: {banEntry.Action.StartTime.ToDiscordFormattedTime()}");
         
         var banViewComponent = new BanViewComponent(23456, this._banRecordResponse, 0, this._userProfileResponse, this._banningUserProfileResponse);
         var embed = banViewComponent.GetEmbed();
@@ -96,8 +97,8 @@ public class BanViewComponentTest
         description.Append($"\n**Display reason**: Test Display");
         description.Append($"\n**Private reason**: Test Private");
         description.Append($"\n**Handled by**: TestDisplay2 (@TestName2) [12345]");
-        description.Append($"\n**Start time**: {banEntry.Action.StartTime}");
-        description.Append($"\n**Expire time**: {banEntry.Action.EndTime}");
+        description.Append($"\n**Start time**: {banEntry.Action.StartTime.ToDiscordFormattedTime()}");
+        description.Append($"\n**Expire time**: {banEntry.Action.EndTime?.ToDiscordFormattedTime()}");
         
         var banViewComponent = new BanViewComponent(23456, this._banRecordResponse, 0, this._userProfileResponse, this._banningUserProfileResponse);
         var embed = banViewComponent.GetEmbed();
@@ -117,8 +118,8 @@ public class BanViewComponentTest
         description.Append($"\n**Display reason**: Test Display");
         description.Append($"\n**Private reason**: Test Private");
         description.Append($"\n**Handled by**: TestDisplay2 (@TestName2) [12345]");
-        description.Append($"\n**Start time**: {banEntry.Action.StartTime}");
-        description.Append($"\n**Expire time**: {banEntry.Action.EndTime} *(Expired)*");
+        description.Append($"\n**Start time**: {banEntry.Action.StartTime.ToDiscordFormattedTime()}");
+        description.Append($"\n**Expire time**: {banEntry.Action.EndTime?.ToDiscordFormattedTime()} *(Expired)*");
         
         var banViewComponent = new BanViewComponent(23456, this._banRecordResponse, 0, this._userProfileResponse, this._banningUserProfileResponse);
         var embed = banViewComponent.GetEmbed();
