@@ -9,7 +9,7 @@ public class DateTimeExtensionsTest
     [Test]
     public void TestToDiscordFormattedTime()
     {
-        var dateTime = new DateTime(2025, 1, 2, 3, 4, 5);
-        Assert.That(dateTime.ToDiscordFormattedTime(), Is.EqualTo("<t:1735805045:F>"));
+        var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(123456789);
+        Assert.That(dateTime.ToDiscordFormattedTime(), Is.EqualTo("<t:123456789:F>"));
     }
 }
