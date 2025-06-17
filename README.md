@@ -334,8 +334,8 @@ The example configuration sets up servers 123456789 and 234567890 to
 control the ban domain `MyGroup`. `/startban` will present a dropdown with
 `Exploiting` and `Other`.
 
-#### `docker-compose.overrides.yml`
-When using Docker Compose, a `docker-compose.overrides.yml` is strongly
+#### `docker-compose.override.yml`
+When using Docker Compose, a `docker-compose.override.yml` is strongly
 recommended to change the internal secret used for internal webhooks (used
 for faster ban responses). All of them must match to work.
 
@@ -354,7 +354,7 @@ services:
       - INTERNAL_WEBHOOK_SECRET_KEY=MyCustomSecret
 ```
 
-`docker-compose.overrides.yml` can also be set to disable services from
+`docker-compose.override.yml` can also be set to disable services from
 starting if you don't need the full functionality. The example below
 disables the Discord bot, disables the join request banning, and opens
 port 8000 of the bans API for use with other applications.
