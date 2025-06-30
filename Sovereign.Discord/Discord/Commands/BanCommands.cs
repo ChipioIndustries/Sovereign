@@ -126,6 +126,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             var domain = this.GetDomain()!;
 
             var response = await context.GetRobloxUserId(parsedDiscordUserId);
+            Logger.Debug($"Bloxlink request response: \nSuccess: {response.Status}\nID: {response.RobloxID}");
             if (response.Status == ResponseStatus.Success && response.RobloxID != null)
             {
 
