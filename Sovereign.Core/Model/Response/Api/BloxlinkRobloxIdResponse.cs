@@ -11,7 +11,7 @@ public class BloxlinkRobloxIdResponse : BaseResponse
     public string RobloxID { get; set; }
     public override JsonTypeInfo GetJsonTypeInfo()
     {
-        return BanRecordResponseJsonContext.Default.BloxlinkRobloxIdResponse;
+        return BloxlinkRobloxIdResponseJsonContext.Default.BloxlinkRobloxIdResponse;
     }
 }
 
