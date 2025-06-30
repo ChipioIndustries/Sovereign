@@ -129,8 +129,8 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             if (response.Status == ResponseStatus.Success && response.RobloxID != null)
             {
 
-                var banResult = await this.StartBan(response.RobloxID);
-                await context.RespondAsync($"Banned {banResult.BannedUserIds.Count} user(s).");
+                await this.StartBan(response.RobloxID);
+                // await context.RespondAsync($"Banned {banResult.BannedUserIds.Count} user(s).");
             }
             else
             {
