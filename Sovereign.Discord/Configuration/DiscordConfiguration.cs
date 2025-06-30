@@ -93,6 +93,8 @@ public class DiscordConfiguration : BaseConfiguration
     /// </summary>
     public DiscordBotConfiguration? Discord { get; set; }
 
+    public BloxlinkConfiguration? Bloxlink { get; set; }
+
     /// <summary>
     /// Domain configurations.
     /// </summary>

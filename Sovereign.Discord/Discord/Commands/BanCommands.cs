@@ -119,18 +119,18 @@ public partial class BanCommands : ExtendedInteractionModuleBase
         try {
             if (!long.TryParse(discordUserId, out var parsedDiscordUserId))
             {
-                return null;
+                throw new Exception();
             }
 
             var context = this.GetContext();
             var domain = this.GetDomain()!;
 
             var response = await context.GetRobloxUserId(parsedDiscordUserId);
-            if (response.Status == ResponseStatus.Success && response.RobloxID)
+            if (response.Status == ResponseStatus.Success && response.RobloxID != null)
             {
 
-                await this.StartBan(response.RobloxID);
-                await context.RespondAsync($"Banned {response.BannedUserIds.Count} user(s).");
+                var banResult = await this.StartBan(response.RobloxID);
+                await context.RespondAsync($"Banned {banResult.BannedUserIds.Count} user(s).");
             }
             else
             {

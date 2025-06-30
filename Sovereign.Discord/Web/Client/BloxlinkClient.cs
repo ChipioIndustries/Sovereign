@@ -59,7 +59,7 @@ public class BloxlinkClient
     {
         // Get the secret key.
         var configuration = this.GetConfiguration();
-        return $"{configuration.BloxlinkConfiguration.Authorization}";
+        return $"{configuration.Bloxlink.Authorization}";
         // var domainData = configuration.Domains!.FirstOrDefault(entry => string.Equals(entry.Name, domain, StringComparison.CurrentCultureIgnoreCase));
         // if (domainData?.ApiSecretKey == null)
         // {
@@ -112,6 +112,6 @@ public class BloxlinkClient
     public async Task<BloxlinkRobloxIdResponse> GetRobloxUserId(long discordId)
     {
         var query = $"{discordId}";
-        return await this.GetAsync("/discord-to-roblox/", query, BanRecordResponseJsonContext.Default.BanRecordResponse);
+        return await this.GetAsync("/discord-to-roblox/", query, BloxlinkRobloxIdResponseJsonContext.Default.BloxlinkRobloxIdResponse);
     }
 }
