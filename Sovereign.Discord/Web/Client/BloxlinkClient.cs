@@ -17,7 +17,7 @@ using Sovereign.Core.Model.Response;
 using Sovereign.Core.Model.Response.Api;
 using Sovereign.Discord.Configuration;
 
-namespace Sovereign.Discord.Web.Client;
+namespace Sovereign.Discord.Web.BloxlinkClient;
 
 public class BloxlinkClient
 {

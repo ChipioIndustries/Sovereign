@@ -11,6 +11,7 @@ using Sovereign.Core.Web.Client;
 using Sovereign.Core.Web.Client.Response;
 using Sovereign.Discord.Configuration;
 using Sovereign.Discord.Web.Client;
+using Sovereign.Discord.Web.BloxlinkClient;
 
 namespace Sovereign.Discord.Discord.Shim;
 
