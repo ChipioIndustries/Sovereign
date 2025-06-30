@@ -8,7 +8,7 @@ namespace Sovereign.Core.Model.Response.Api;
 public class BloxlinkRobloxIdResponse : BaseResponse
 {
     [JsonPropertyName("robloxID")]
-    public string RobloxID { get; set; }
+    public string RobloxID { get; set; } = null!;
     public override JsonTypeInfo GetJsonTypeInfo()
     {
         return BloxlinkRobloxIdResponseJsonContext.Default.BloxlinkRobloxIdResponse;
