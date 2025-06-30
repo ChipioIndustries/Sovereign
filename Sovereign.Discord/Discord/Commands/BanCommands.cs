@@ -24,19 +24,51 @@ public class BanPromptModal : IModal
     /// </summary>
     [ModalTextInput("DisplayReason")]
     public string DisplayReason { get; set; } = null!;
-    
+
     /// <summary>
     /// Private reason for the ban.
     /// </summary>
     [ModalTextInput("PrivateReason")]
     public string PrivateReason { get; set; } = null!;
-    
+
     /// <summary>
     /// User ids to ban.
     /// </summary>
     [ModalTextInput("RobloxUserIds")]
     public string RobloxUserIds { get; set; } = null!;
-    
+
+    /// <summary>
+    /// Optional duration of the ban.
+    /// </summary>
+    [ModalTextInput("Duration")]
+    public string Duration { get; set; } = null!;
+}
+
+public class DiscordIdBanPromptModal : IModal
+{
+    /// <summary>
+    /// Dummy title of the prompt.
+    /// </summary>
+    public string Title => "Ban Via Discord ID Prompt";
+
+    /// <summary>
+    /// Display reason for the ban.
+    /// </summary>
+    [ModalTextInput("DisplayReason")]
+    public string DisplayReason { get; set; } = null!;
+
+    /// <summary>
+    /// Private reason for the ban.
+    /// </summary>
+    [ModalTextInput("PrivateReason")]
+    public string PrivateReason { get; set; } = null!;
+
+    /// <summary>
+    /// User ids to ban.
+    /// </summary>
+    [ModalTextInput("DiscordUserID")]
+    public string DiscordUserID { get; set; } = null!;
+
     /// <summary>
     /// Optional duration of the ban.
     /// </summary>
@@ -50,13 +82,13 @@ public class UnbanPromptModal : IModal
     /// Dummy title of the prompt.
     /// </summary>
     public string Title => "Ban Prompt";
-    
+
     /// <summary>
     /// Private reason for the ban.
     /// </summary>
     [ModalTextInput("PrivateReason")]
     public string PrivateReason { get; set; } = null!;
-    
+
     /// <summary>
     /// User ids to ban.
     /// </summary>
@@ -70,7 +102,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
     /// Max length of the display message.
     /// </summary>
     public const int MaxDisplayMessageLength = 400;
-    
+
     /// <summary>
     /// Max length of the private message.
     /// </summary>
@@ -80,7 +112,33 @@ public partial class BanCommands : ExtendedInteractionModuleBase
     /// Seconds in an hour.
     /// </summary>
     public const long SecondsPerHour = 60 * 60;
-    
+
+    [SlashCommand("startbanviadiscordid", "Prompts banning a Roblox user via their Discord ID using Sovereign.")]
+    public async Task StartBanViaDiscordId([Summary("Discord_User_Id", "Discord User ID to ban")] string discordUserId)
+    {
+        try {
+            if (!long.TryParse(discordUserId, out var parsedDiscordUserId))
+            {
+                return null;
+            }
+
+            var context = this.GetContext();
+            var domain = this.GetDomain()!;
+
+            var response = await context.GetRobloxUserId(parsedDiscordUserId);
+            if (response.Status == ResponseStatus.Success && response.RobloxID)
+            {
+
+                await this.StartBan(response.RobloxID);
+                await context.RespondAsync($"Banned {response.BannedUserIds.Count} user(s).");
+            }
+            else
+            {
+                await context.RespondAsync("Unable to find Roblox account associated with this user.");
+            }
+        }
+    }
+
     /// <summary>
     /// Handles a command to ban users.
     /// </summary>
@@ -95,7 +153,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             {
                 return;
             }
-            
+
             // Return if there are no ban reasons.
             var context = this.GetContext();
             var domain = this.GetDomain()!;
@@ -137,7 +195,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             Logger.Error($"Error processing /startban command.\n{e}");
         }
     }
-    
+
     [SlashCommand("startunban", "Prompts unbanning users using Sovereign.")]
     public async Task StartUnban([Summary("Roblox_User_Ids", "Roblox user ids to unban, separated by commas.")] string robloxUserIds)
     {
@@ -149,7 +207,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             {
                 return;
             }
-            
+
             // Build and present the unban prompt.
             var context = this.GetContext();
             var modalBuilder = new ModalBuilder()
@@ -164,7 +222,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             Logger.Error($"Error processing /startunban command.\n{e}");
         }
     }
-    
+
     /// <summary>
     /// Handles a ban option being selected.
     /// </summary>
@@ -197,7 +255,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             {
                 return;
             }
-            
+
             // Parse the duration.
             var context = this.GetContext();
             var durationText = modal.Duration.Trim();
@@ -212,7 +270,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
                 }
                 durationSeconds = (long) (SecondsPerHour * durationHours);
             }
-            
+
             // Send the ban request.
             var domain = this.GetDomain()!;
             var displayMessage = modal.DisplayReason;
@@ -249,7 +307,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             Logger.Error($"Error processing ban prompt.\n{e}");
         }
     }
-    
+
     /// <summary>
     /// Handles an unban prompt being completed.
     /// </summary>
@@ -264,7 +322,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             {
                 return;
             }
-            
+
             // Send the unban request.
             var context = this.GetContext();
             var domain = this.GetDomain()!;
@@ -314,7 +372,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             await context.RespondAsync("Sovereign is not configured for this server.");
             return null;
         }
-        
+
         // Parse the list of user ids.
         var parsedRobloxUserIds = new List<long>();
         foreach (var robloxUserId in robloxUserIds.Split(','))
@@ -336,7 +394,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             await context.RespondAsync($"No Roblox user ids could be parsed.");
             return null;
         }
-            
+
         // Check if the user can ban.
         try
         {
@@ -364,7 +422,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             await context.RespondAsync("Error occured when checking if your account can ban users.");
             throw;
         }
-        
+
         // Return the Roblox user ids.
         return parsedRobloxUserIds;
     }
@@ -388,7 +446,7 @@ public partial class BanCommands : ExtendedInteractionModuleBase
             await context.RespondAsync("The ban option is no longer configured on the server.");
             return;
         }
-            
+
         // Build and present the ban prompt.
         var modalBuilder = new ModalBuilder()
             .WithTitle($"Ban ({banOptionName})")

@@ -20,7 +20,7 @@ public class InteractionContextWrapper : IInteractionContextWrapper
     /// Discord user id of the interaction.
     /// </summary>
     public ulong DiscordUserId => this._context.User.Id;
-    
+
     /// <summary>
     /// Discord guild id of the interaction.
     /// </summary>
@@ -30,7 +30,7 @@ public class InteractionContextWrapper : IInteractionContextWrapper
     /// Contents of the source message of the interaction.
     /// </summary>
     public string? SourceMessage => ((SocketMessageComponent?) this._context.Interaction)?.Message?.Content;
-    
+
     /// <summary>
     /// Context used to interact with Discord.
     /// </summary>
@@ -53,7 +53,7 @@ public class InteractionContextWrapper : IInteractionContextWrapper
     {
         return Configurations.GetConfiguration<DiscordConfiguration>();
     }
-    
+
     /// <summary>
     /// Fetches the Roblox user profile.
     /// The information is not cached due to the use case in the Discord bot relying on not caching.
@@ -101,7 +101,7 @@ public class InteractionContextWrapper : IInteractionContextWrapper
         var sovereignBansApiClient = new SovereignBansApiClient();
         return await sovereignBansApiClient.LinkDiscordAccountAsync(domain, discordUserId, robloxUserId);
     }
-    
+
     /// <summary>
     /// Bans or unbans a list of Roblox user ids.
     /// </summary>
@@ -119,7 +119,13 @@ public class InteractionContextWrapper : IInteractionContextWrapper
         var sovereignBansApiClient = new SovereignBansApiClient();
         return await sovereignBansApiClient.BanAsync(domain, banAction, discordUserId, robloxUserIds, displayReason, privateReason, excludeAltAccounts, duration);
     }
-    
+
+    public async Task<BloxlinkRobloxIdResponse> GetRobloxUserId(long discordId)
+    {
+        var bloxlinkClient = new BloxlinkClient();
+        return await bloxlinkClient.GetRobloxUserId(discordId)
+    }
+
     /// <summary>
     /// Fetches a ban record for a Roblox user id.
     /// Due to the UI only showing 1 ban at a time, only 1 ban record at most is returned.
@@ -169,7 +175,7 @@ public class InteractionContextWrapper : IInteractionContextWrapper
             // Ignore exceptions, in case the response was too late.
         }
     }
-    
+
     /// <summary>
     /// Updates the component of the interacted message.
     /// </summary>

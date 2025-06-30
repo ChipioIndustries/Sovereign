@@ -27,7 +27,7 @@ services:
       - ./persistence:/data/
     # Ports are not exposed by default.
     # Use docker-compose.override.yml to expose port 8000 if needed. It is not required for the Discord bot.
-  
+
   sovereign-bans-games:
     container_name: SovereignBansGames
     build:
@@ -55,7 +55,7 @@ services:
     volumes:
       - ./configurations:/configurations/
       - ./persistence:/data/
-  
+
   sovereign-bans-join-requests:
     container_name: SovereignBansJoinRequests
     build:
@@ -83,7 +83,7 @@ services:
     volumes:
       - ./configurations:/configurations/
       - ./persistence:/data/
-  
+
   sovereign-bans-discord:
     container_name: SovereignBansDiscord
     build:
@@ -95,6 +95,7 @@ services:
     environment:
       - CONFIGURATION_FILE_LOCATION=/configurations/discord.json
       - SOVEREIGN_BANS_API_BASE_URL=http://sovereign-api-bans:8000
+      - BLOXLINK_API_BASE_URL=https://api.blox.link/v4/public
     restart: always
     networks:
       - sovereign

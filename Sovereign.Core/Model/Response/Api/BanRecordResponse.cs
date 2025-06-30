@@ -12,20 +12,20 @@ public class BanResponseEntryAction
     /// </summary>
     [JsonPropertyName("type")]
     public BanAction Type { get; set; }
-    
+
     /// <summary>
     /// If true, alt accounts will not be banned or unbanned.
     /// Not all banning outputs support this.
     /// </summary>
     [JsonPropertyName("excludeAltAccounts")]
     public bool ExcludeAltAccounts { get; set; } = false;
-    
+
     /// <summary>
     /// Start time of the action.
     /// </summary>
     [JsonPropertyName("startTime")]
     public DateTime StartTime { get; set; }
-    
+
     /// <summary>
     /// Optional end time of the ban.
     /// </summary>
@@ -47,7 +47,7 @@ public class BanResponseEntryReason
     /// </summary>
     [JsonPropertyName("display")]
     public string Display { get; set; } = null!;
-    
+
     /// <summary>
     /// Message that is kept internally for the ban.
     /// This is only stored on Roblox for bans, but is recorded in the database.
@@ -78,13 +78,13 @@ public class BanRecordResponse : BaseResponse
     /// </summary>
     [JsonPropertyName("total")]
     public int Total { get; set; }
-    
+
     /// <summary>
     /// List of ban entries.
     /// </summary>
     [JsonPropertyName("entries")]
     public List<BanRecordResponseEntry> Entries { get; set; } = null!;
-    
+
     /// <summary>
     /// Returns the JSON type information of the response.
     /// </summary>
