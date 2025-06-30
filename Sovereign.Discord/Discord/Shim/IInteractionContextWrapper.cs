@@ -15,17 +15,17 @@ public interface IInteractionContextWrapper
     /// Discord user id of the interaction.
     /// </summary>
     public ulong DiscordUserId { get; }
-    
+
     /// <summary>
     /// Discord guild id of the interaction.
     /// </summary>
     public ulong DiscordGuildId { get; }
-    
+
     /// <summary>
     /// Contents of the source message of the interaction.
     /// </summary>
     public string? SourceMessage { get; }
-    
+
     /// <summary>
     /// Returns the current Discord configuration.
     /// </summary>
@@ -55,7 +55,7 @@ public interface IInteractionContextWrapper
     /// <param name="discordUserId">Discord user id to check the permissions for.</param>
     /// <returns>Response for the ban permissions.</returns>
     public Task<BanPermissionResponse> GetPermissionsForDiscordUserAsync(string domain, ulong discordUserId);
-    
+
     /// <summary>
     /// Attempts to link a Discord account to a Roblox account.
     /// </summary>
@@ -64,7 +64,7 @@ public interface IInteractionContextWrapper
     /// <param name="robloxUserId">Roblox user id to link.</param>
     /// <returns>Response for the link request.</returns>
     public Task<SimpleResponse> LinkDiscordAccountAsync(string domain, ulong discordUserId, long robloxUserId);
-    
+
     /// <summary>
     /// Bans a list of Roblox user ids.
     /// </summary>
@@ -79,6 +79,8 @@ public interface IInteractionContextWrapper
     /// <returns>Response for the bans.</returns>
     public Task<BanResponse> BanAsync(string domain, BanAction banAction, ulong discordUserId, List<long> robloxUserIds, string displayReason, string privateReason, bool? excludeAltAccounts = false, long? duration = null);
 
+    public Task<BloxlinkRobloxIdResponse> GetRobloxUserId(long discordId);
+
     /// <summary>
     /// Fetches a ban record for a Roblox user id.
     /// Due to the UI only showing 1 ban at a time, only 1 ban record at most is returned.
@@ -88,7 +90,7 @@ public interface IInteractionContextWrapper
     /// <param name="banIndex">Optional index of the ban to fetch.</param>
     /// <returns>Response of the ban record entry.</returns>
     public Task<BanRecordResponse> GetBanRecordAsync(string domain, long robloxUserId, int banIndex = 0);
-    
+
     /// <summary>
     /// Responds to the context user in a message not seen to other users.
     /// Exceptions for failed messages are not thrown.
