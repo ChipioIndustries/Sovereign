@@ -124,7 +124,7 @@ public class InteractionContextWrapper : IInteractionContextWrapper
     public async Task<BloxlinkRobloxIdResponse> GetRobloxUserId(long discordId)
     {
         var bloxlinkClient = new BloxlinkClient();
-        return await bloxlinkClient.GetRobloxUserId(discordId)
+        return await bloxlinkClient.GetRobloxUserId(discordId);
     }
 
     /// <summary>
