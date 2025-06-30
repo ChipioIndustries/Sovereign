@@ -137,6 +137,10 @@ public partial class BanCommands : ExtendedInteractionModuleBase
                 await context.RespondAsync("Unable to find Roblox account associated with this user.");
             }
         }
+        catch (Exception e)
+        {
+            Logger.Error($"Error processing /startbanviadiscordid command.\n{e}");
+        }
     }
 
     /// <summary>
